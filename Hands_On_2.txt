@@ -1,0 +1,15 @@
+select *from SalesMan 
+select *from Customer
+select * from Orders
+
+
+select * from Orders where SalesMan_id =(select SalesMan_id from SalesMan where name='Paul Adam')
+select * from Orders where SalesMan_id =(select SalesMan_id from SalesMan where city='London')
+select * from Orders where SalesMan_id =(select SalesMan_id from Orders where customer_id=3007)
+select * from Orders where purch_amt>(select avg(purch_amt)from orders where ord_date='2012-10-10')
+select * from Orders Where SalesMan_id in(select SalesMan_id from Customer where city='New York')
+select SalesMan_id, name from SalesMan where 1<(select count(*) from Customer where SalesMan_id=SalesMan.SalesMan_id)
+select * from Orders where purch_amt>(select avg(purch_amt) from Orders)
+select ord_date, sum(purch_amt) from Orders a group by ord_date having  sum(purch_amt)> (select 1000.00+max(purch_amt) from Orders b where a.ord_date=b.ord_date)
+select * from Customer where exists (select * from Customer where city='London')
+select * from SalesMan where SalesMan_id in(SELECT DISTINCT salesman_id FROM customer a where EXISTS (Select *from customer b where b.salesman_id=a.salesman_id and b.cust_name<>a.cust_name))
