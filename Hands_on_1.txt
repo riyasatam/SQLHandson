@@ -1,0 +1,45 @@
+select *from SalesMan 
+select *from Customer
+select * from Orders
+
+select ord_date,SalesMan_id,ord_no,purch_amt from Orders
+
+select distinct SalesMan_id from Orders
+
+select name, city  from SalesMan where city='Paris'
+
+select ord_no, ord_date, purch_amt from Orders where SalesMan_id=5001
+
+select customer_id, cust_name, city, grade,  salesman_id from Customer where city='New York' and grade>100
+
+select salesman_id, name, city,commission from SalesMan where (commission>0.10 and commission<0.12)
+
+select sum(purch_amt)  as'TotalPurchaseAmount' from Orders
+
+select avg(purch_amt)  as'AveragePurchaseAmount' from Orders
+
+select COUNT (distinct salesman_id) 
+from orders;
+
+select customer_id,max(purch_amt) as 'HighestPurchaseAmount' from Orders group by customer_id
+
+select customer_id,ord_date,MAX(purch_amt) 
+from orders 
+group by customer_id,ord_date;
+
+select salesman_id, max(purch_amt) from orders where ord_date = '2012-08-17' group by salesman_id
+
+select Salesman.name as 'SalesMan',Customer.cust_name, Customer.city from SalesMan,Customer where SalesMan.city=Customer.city
+
+
+select Orders.ord_no, Orders.purch_amt, Customer.cust_name, Customer.city from Orders, Customer where purch_amt between 500 and 2000
+
+select a.cust_name as "Customer Name", 
+a.city, b.name as "Salesman", b.commission 
+from customer a 
+INNER JOIN salesman b 
+on a.salesman_id=b.salesman_id 
+where b.commission>.12;
+
+SELECT a.cust_name,a.city,a.grade, b.name AS "Salesman",b.city FROM customer a LEFT JOIN salesman b ON a.salesman_id=b.salesman_id 
+order by a.customer_id;
